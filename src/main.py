@@ -22,3 +22,7 @@ class CSVReaderApp(QMainWindow):
         self.open_button = QPushButton("باز کردن فایل CSV")
         self.open_button.clicked.connect(self.open_csv_file)
         self.layout.addWidget(self.open_button)
+        
+        self.file_info_label = QLabel("هیچ فایلی انتخاب نشده است")
+        self.file_info_label.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.file_info_label)
