@@ -64,3 +64,9 @@ class CSVReaderApp(QMainWindow):
             except Exception as e:
                 self.status_bar.showMessage(f"خطا: {str(e)}", 5000)
                 self.file_info_label.setText("خطا در خواندن فایل CSV")
+                
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = CSVReaderApp()
+    window.show()
+    sys.exit(app.exec_())
