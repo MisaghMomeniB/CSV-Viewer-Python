@@ -29,3 +29,6 @@ class CSVReaderApp(QMainWindow):
         
         self.table_view = QTableView()
         self.layout.addWidget(self.table_view)
+        
+        self.status_bar = QStatusBar()
+        self.setStatusBar(self.status_bar)
