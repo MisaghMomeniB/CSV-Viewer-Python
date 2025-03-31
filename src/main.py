@@ -11,72 +11,72 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 class CSVReaderApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("CSV Reader با PyQt5")
+        self.setWindowTitle("CSV Reader with PyQt5")
         self.setGeometry(100, 100, 800, 600)
         
-        # ایجاد ویجت‌های اصلی
+        # Create main widgets
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         
         self.layout = QVBoxLayout()
         self.central_widget.setLayout(self.layout)
         
-        # ایجاد دکمه برای باز کردن فایل
-        self.open_button = QPushButton("باز کردن فایل CSV")
+        # Create button to open file
+        self.open_button = QPushButton("Open CSV File")
         self.open_button.clicked.connect(self.open_csv_file)
         self.layout.addWidget(self.open_button)
         
-        # برچسب برای نمایش اطلاعات فایل
-        self.file_info_label = QLabel("هیچ فایلی انتخاب نشده است")
+        # Label to display file info
+        self.file_info_label = QLabel("No file selected")
         self.file_info_label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.file_info_label)
         
-        # ایجاد جدول برای نمایش داده‌های CSV
+        # Create table to display CSV data
         self.table_view = QTableView()
         self.layout.addWidget(self.table_view)
         
-        # ایجاد نوار وضعیت
+        # Create status bar
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
         
-        # مدل داده برای جدول
+        # Data model for the table
         self.model = QStandardItemModel()
         self.table_view.setModel(self.model)
         
     def open_csv_file(self):
-        # نمایش دیالوگ انتخاب فایل
+        # Show file selection dialog
         file_path, _ = QFileDialog.getOpenFileName(
-            self, "انتخاب فایل CSV", "", "فایل‌های CSV (*.csv);;همه فایل‌ها (*)"
+            self, "Select CSV File", "", "CSV Files (*.csv);;All Files (*)"
         )
         
         if file_path:
             try:
-                # خواندن فایل CSV
+                # Read CSV file
                 with open(file_path, 'r', encoding='utf-8') as csv_file:
                     csv_reader = csv.reader(csv_file)
                     data = list(csv_reader)
                 
-                # تنظیم اطلاعات فایل در برچسب
-                self.file_info_label.setText(f"فایل: {file_path} - تعداد سطرها: {len(data)}")
+                # Set file info in label
+                self.file_info_label.setText(f"File: {file_path} - Rows: {len(data)}")
                 
-                # پاک کردن مدل قبلی
+                # Clear previous model
                 self.model.clear()
                 
-                # تنظیم هدرهای ستون
+                # Set column headers
                 if data:
                     headers = data[0]
                     self.model.setHorizontalHeaderLabels(headers)
                     
-                    # پر کردن مدل با داده‌ها
+                    # Fill model with data
                     for row in data[1:]:
                         items = [QStandardItem(item) for item in row]
                         self.model.appendRow(items)
                 
-                self.status_bar.showMessage("فایل با موفقیت بارگذاری شد", 3000)
+                self.status_bar.showMessage("File loaded successfully", 3000)
                 
             except Exception as e:
-                self.status_bar.showMessage(f"خطا: {str(e)}", 5000)
-                self.file_info_label.setText("خطا در خواندن فایل CSV")
+                self.status_bar.showMessage(f"Error: {str(e)}", 5000)
+                self.file_info_label.setText("Error reading CSV file")
 
 
 if __name__ == "__main__":
