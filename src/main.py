@@ -12,3 +12,6 @@ class CSVReaderApp(QMainWindow):
         super().__init__()
         self.setWindowTitle("CSV Reader با PyQt5")
         self.setGeometry(100, 100, 800, 600)
+        
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
