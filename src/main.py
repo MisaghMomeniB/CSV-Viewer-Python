@@ -18,3 +18,7 @@ class CSVReaderApp(QMainWindow):
         
         self.layout = QVBoxLayout()
         self.central_widget.setLayout(self.layout)
+        
+        self.open_button = QPushButton("باز کردن فایل CSV")
+        self.open_button.clicked.connect(self.open_csv_file)
+        self.layout.addWidget(self.open_button)
