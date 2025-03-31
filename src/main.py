@@ -26,3 +26,6 @@ class CSVReaderApp(QMainWindow):
         self.file_info_label = QLabel("هیچ فایلی انتخاب نشده است")
         self.file_info_label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.file_info_label)
+        
+        self.table_view = QTableView()
+        self.layout.addWidget(self.table_view)
