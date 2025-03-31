@@ -35,3 +35,32 @@ class CSVReaderApp(QMainWindow):
         
         self.model = QStandardItemModel()
         self.table_view.setModel(self.model)
+        
+    def open_csv_file(self):
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "انتخاب فایل CSV", "", "فایل‌های CSV (*.csv);;همه فایل‌ها (*)"
+        )
+        
+        if file_path:
+            try:
+                with open(file_path, 'r', encoding='utf-8') as csv_file:
+                    csv_reader = csv.reader(csv_file)
+                    data = list(csv_reader)
+                
+                self.file_info_label.setText(f"فایل: {file_path} - تعداد سطرها: {len(data)}")
+                
+                self.model.clear()
+                
+                if data:
+                    headers = data[0]
+                    self.model.setHorizontalHeaderLabels(headers)
+                    
+                    for row in data[1:]:
+                        items = [QStandardItem(item) for item in row]
+                        self.model.appendRow(items)
+                
+                self.status_bar.showMessage("فایل با موفقیت بارگذاری شد", 3000)
+                
+            except Exception as e:
+                self.status_bar.showMessage(f"خطا: {str(e)}", 5000)
+                self.file_info_label.setText("خطا در خواندن فایل CSV")
