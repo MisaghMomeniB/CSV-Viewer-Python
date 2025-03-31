@@ -15,3 +15,6 @@ class CSVReaderApp(QMainWindow):
         
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
+        
+        self.layout = QVBoxLayout()
+        self.central_widget.setLayout(self.layout)
