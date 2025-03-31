@@ -9,4 +9,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 class CSVReaderApp(QMainWindow):
     def __init__(self):
-        
+        super().__init__()
+        self.setWindowTitle("CSV Reader با PyQt5")
+        self.setGeometry(100, 100, 800, 600)
